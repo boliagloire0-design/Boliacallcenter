@@ -1,9 +1,17 @@
+// backend/server.js
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+
+// Use an environment variable for the frontend URL in production
+const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
+
+app.use(cors({
+  origin: allowedOrigin
+}));
+
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
